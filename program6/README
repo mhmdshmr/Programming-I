@@ -1,0 +1,41 @@
+Programming I -- Assignment 6
+Linked Lists
+Due Thursday, April 28th
+
+This assignment involves writing some code that deals with a data structure called a 'linked list'. Conceptually, a linked list is simply a sequence of 'data nodes' (each node containing some piece of information) that are linked together by pointers. We have a pointer called 'head' that points to the first such node, which contains a pointer to the next, etc. Conceptually, we have:
+
+head --> NODE 1 --> NODE 2 --> NODE 3 --> ... --> NODE N
+
+where the last NODE has a null pointer coming out to indicate the end of the list. 
+
+Set up an abstract data type for manipulating a linked list as a C++ class.  
+You can organize it something like this:
+
+struct DataType
+{
+  //put in your appointment info
+};
+
+struct Node
+{
+   DataType data;
+   Node *next;
+};
+
+class List
+{
+   Node *head;
+public:
+   List() { head = 0; }
+//etc.
+};
+
+Get code as list.h, list.cpp, and uselist.cpp. Also these files are on the cs server, you can copy them as with cp ../list.h . and the same with the other two files.
+
+Your assignment #6 is to set up a computerized doctor appointment schedule for one arbitrary day. Times will be stored as integer military times, as in 800 for 8 am, 1645 for 4:45 pm, etc. Available appointment times are any multiple of 15 minutes from 800 to 1645 (open 8 to 5). When you run your program, you pretend to be a secretary taking appointment calls (all for the next day, to make it simple). Customers can call in to either schedule an appointment or to cancel one. The information you will store about each appointment (i.e., what goes into "struct DataType") is :
+
+1.  customer name -- (for simplicity, just use last names)
+2.  time (as described above)
+3.  problem -- (a string briefly describing customer's problem)
+
+All this goes into your linked list of structs, ordered by appointment time. If a customer requests a time that is already being used, they must try a different time (thus, your insert routine needs to be altered a little to accomodate this). If the customer requests a time that is not a multiple of 15, round it up to the nearest such (and require it to be in the range 800 to 1645). If a customer calls to cancel an appointment, ask for the name, and search BY NAME to find the right appointment, then delete it. Note: Times must be carefully handled; you probably will want to break up a time such as 1445 into hrs = 14, min = 45 in order to work with it. If you leave it as 1445 and check to see if it is divisible by 15, it turns out not to be! Also include a routine to traverse the whole linked list (schedule), such that all the information is printed, in a reasonably neat format. When you actually run the program, insert at least 10 appointments, show that your delete works, and finally do a traversal to print out the final schedule. 

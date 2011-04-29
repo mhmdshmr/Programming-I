@@ -1,0 +1,41 @@
+Programming I Assignment 3
+Percentile Scores
+Due Tuesday, March 1st
+
+Write a well structured C++ program that will use Bubble Sort to sort an array of integers into ascending order. However, there is more to the assignment than just sorting. Write at least 3 functions in this program, one for doing the bubble sort, one for calculating a median, and one for outputting the array.
+
+The median of a sorted array of numbers is defined as the middle element, or the average of the middle two items if the number of items is even. Write a function, called median, which returns a double which is the median of a sorted array of integers.
+
+Once your median function is written, it can be used to do other things. Your program needs to take its input from a file, which can be downloaded here. Alternatively you may copy this file on cs from .. in the usual way. You can run your program from the command line, like this (suppose your executable file name is percent):
+percent < scores.dat
+
+That causes your program to take its cin type input from the file scores.dat instead of the keyboard.
+
+Now after reading the array of scores from scores.dat and counting how many items it contains, do the following:
+
+sort the array using your bubble sort.
+p50 = median(x, n);
+p25 = median(x, n/2);
+p75 = median(x + n/2 + 1, n/2);
+
+and print these out.
+
+What "these" are, are percentile values. p50 is the 50th percentile, the score that half the class scored better than and half did worse. p25 is the 25th percentile while p75 is the 75th percentile.
+
+We will discuss bubble sort in class.
+
+So, overall you will
+read the array values from "the keyboard"
+bubble sort the array
+calculate the percentile values p25, p50, and p75
+print the sorted array (print 10 values per line)
+print (with labels so we know what they are) the percentile values
+
+BE CERTAIN TO HAVE AT LEAST 3 SEPARATE FUNCTIONS --
+one for bubble sort
+one for calculating a median
+one for printing an int array, say
+   void print(int x[], int n, int num_across)
+with num_across being how many values to print per line
+(should be 10 for this program).
+

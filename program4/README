@@ -1,0 +1,21 @@
+programming I Assignment #4
+Stacks and Expression Evaluation
+Due Thursday, March 24th
+
+Implement a Stack ADT (abstract data type) as discussed in class; this involves writing a stack.h header file and a stack.cpp implementation file. Then, write prog4.cpp which should include stack.h and will be linked with the object code from stack.cpp; what your program 4 should do is to allow for integer expression evalutation. Open the file expr.txt (which you can get from the cs server also) and read in each line of text as a string which represents an integer arithmetic expression, such as ((2+3)*4)/9 -- integer constants, parentheses, and the four basic arithmetic operators. For each line of text, print it out and on the same line, lined up on the right, print the integer evaluation of the expression. Thus your output might appear as
+
+               Expression Evaluation
+
+((2+3)*4)/9                                 2
+5+4*8                                      37
+(and so on)
+
+You basically need two functions -- one for converting infix strings to postfix strings, and one for evaluating postfix strings into integer results. These will be discussed in class. Both functions involve the use of a stack.
+
+Get pfix.cpp (as seen in class) here. This code shows the routine for converting infix strings to postfix -- but you will also need to write an evaluate function that will take a postfix string and "evaluate" it. This will be discussed in class. Note, files like expr.txt and pfix.cpp can be gotten from the CS server. Just copy them to your account home directory like:
+
+cp ../pfix.cpp .
+cp ../expr.txt .
+a Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+

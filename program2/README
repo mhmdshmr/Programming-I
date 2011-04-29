@@ -1,0 +1,43 @@
+Programming I Assignment 2
+Square Root via Newton's Method
+Due Tuesday, February 15th
+
+
+Write a C++ program that will compute the square root of a given floating point number in the following way:
+
+   If A is the value you need the square root of, and x is the initial 
+guess for the root, then (x + A / x) / 2.0
+will be a closer approximation to the square root of A.  
+Set up a loop where you keep track of the current approximation and
+the previous one, and stop when the absolute value of their
+difference is less than 1e-10 (10 to the -10th power).  Print out the
+computed square root and also the number of iterations required to 
+get it.
+
+   In counting the number of iterations required for the process to 
+converge, it is possible to get into an "infinite loop".  To avoid this
+you can put another condition in your loop, as with
+
+   while (not converged and iter < 100)
+
+That way if the number of iterations reaches 100, the loop will stop, and
+you can then check for that and print an error message.
+
+   Be sure to handle all possible cases :  if the input is < 0, loop until they
+put it in as positive.  If the input IS zero, handle that appropriately (you
+will need to do something here since otherwise you will likely divide by zero,
+causing the program to crash).
+
+The fabs function is in the cmath header, and will return the absoute value of any double you pass to it. For example:
+
+#include < iostream >
+#include < cmath >
+using namespace std;
+
+int main()
+{
+   double x = -5;
+   cout << fabs(x) << endl;
+}
+
+The above code will print 5. 

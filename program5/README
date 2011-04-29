@@ -1,0 +1,11 @@
+ng I Assignment #5
+Writing a C++ Data Type
+Due Thursday, April 7th
+
+Encapsulate an integer array in a class IntArray. Make a .h file and a .cpp file for intarray; put the interface in intarray.h and the implementation in intarray.cpp. The idea is that arrays are "evil" and need to be wrapped in some type of container that makes them behave better with respect to C++ ideals. So have a dynamically allocated representation that can be resized smaller or larger, has a [] operator for accessing elements, and a size() method so an intarray knows it size. Also make the thing a concrete data type, that is having appropriate constructor, copy constructor and assigment operator. NOW HERE is the new part that we haven't done yet: Write a resize method for your IntArray, that will resize the thing to a new given size. Have it be able to go up or down, preserving all of the old array elements that it can. Obviously if the array is size 10 and you downsize it to 5, you can only preserve 5 of the original values.
+
+Then write a main program as follows (say, testarray.cpp). This should have a function average() that takes one parameter, an IntArray, and returns its (float) average. Then in main, do the following:
+
+Generate an IntArray of n items (you input n); have them randomly generated. Find the average and print it out. Then, resize the array to size 10, and calculate and print the new average; also print out the array that now is size 10. (Your original array size should be more than 10). a Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+
