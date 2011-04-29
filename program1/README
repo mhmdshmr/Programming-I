@@ -1,0 +1,31 @@
+Programming I
+Assignment #1
+Savings Account Calculations
+Due Thursday, January 27th
+
+Write a C++ program that allows the user to compute the value of a compound interest amount. If you deposit D dollars at an annual interest rate of i% annually, with k compounding periods per year over a term of n years, then the value it will have after n years is
+
+    D(1 + i/k)nk
+
+However if the interest is to be compounded continuously, then the formula becomes
+
+    Dein
+
+Here we are using the math function ex where e is Euler's constant 2.71828... That function in C++ is exp(). Also to raise to a power in general you can use the builtin function pow(x,y) which gives you xy. Be certain to #include < cmath > to use these. So, your program should do the following: Use cin to input values for D, i, k, and n (as in the formulas above) but use some decent names such as Deposit, rate, periods, and term. When prompting the user for these values, have them input the compounding periods as zero for continuous compounding or some non-zero integer for compounding that many times per year. Then your output should be
+
+    Normal compounding yields  $6227.25
+
+or otherwise
+
+    Continuous compounding yields $6230.19
+
+
+Either way use the iomanip header and setprecision so as to output these amounts with 2 places after the decimal point.
+
+Be sure to divide the rate by 100 after you input it, otherwise your amounts will be WAY off.
+
+ 
+
+ 
+
+
