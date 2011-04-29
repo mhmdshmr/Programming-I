@@ -1,0 +1,262 @@
+
+
+// Duggan Roberts Program 4 03/24/2011
+// Dr. Stockwell-  Programming 1 
+
+
+
+Script started on Thu 24 Mar 2011 10:13:25 AM CDT
+]0;ws031@cs:~/program4[ws031@cs program4]$ cat stack.cpp
+#include "stack.h"
+
+
+Stack::Stack()
+{
+_top = -1;
+}
+bool Stack::empty()
+{
+return _top == -1;
+}
+bool Stack::full()
+{
+return _top == MAX_SIZE - 1;
+}
+void Stack::push(int item)
+{
+if (! full())
+	data [++_top] = item;
+}
+int Stack::pop()
+{
+	if (! empty())
+	return data[_top--];
+}
+
+int Stack::top()
+{
+return data[_top];
+}
+
+]0;ws031@cs:~/program4[ws031@cs program4]$ cat stack [K.h
+#if !defined(STACK_H)
+#define STACK_H
+
+
+const int MAX_SIZE =100;
+
+class Stack {
+
+int data[MAX_SIZE];
+int _top;
+public:
+Stack();
+bool empty();
+bool full();
+void push(int);
+int pop();
+int top();
+};
+
+#endif
+
+
+
+
+
+]0;ws031@cs:~/program4[ws031@cs program4]$ cat prog4.cpp
+#include<fstream>
+#include <iostream>
+#include<iomanip>
+#include <string>
+#include <sstream>
+#include "stack.h"
+#include <cstdio>
+#include <cctype>
+#include <stack>
+#include <cstring>
+using namespace std;
+
+
+
+
+
+int prec(char c)
+{
+	if (c == '+' || c == '-')
+		return 1;
+	if (c == '*' || c == '/')
+		return 2;
+	return 0;
+}
+
+string
+infix_2_postfix(string infix  )
+{
+    char temp;
+    
+    Stack os;
+    istringstream in(infix);
+    ostringstream out;
+    char c;
+    int n;
+    char str[20];
+
+	while (in >> c)
+	{
+		if (isdigit(c))
+		{
+                   in.putback(c);
+                   in >> n;
+                   //sprintf(str,"%d ",n);
+                   out << n << " ";
+		}
+
+
+		switch (c)
+		{
+		case ' ':
+			break;
+		case '+':
+		case '-':
+		case '*':
+		case '/':
+		case ')':
+			while (!os.empty() && prec(c) <= prec(os.top()))
+			{
+				temp = os.top();
+				os.pop();
+				if (temp != '(')
+				{
+				    str[0] = temp;
+				    str[1] = 0;
+				    out << str;
+			    }
+			}
+			if (c != ')')
+			   os.push(c);
+			else
+				if (!os.empty())
+				   os.pop();
+			break;
+		case '(':
+			os.push(c);
+			break;
+		}
+	} //end while
+
+	//now finish placing operators that are left.
+	while (!os.empty())
+	{
+		temp = os.top();
+		os.pop();
+		if (temp != '(')
+		{
+		    str[0] = temp;
+		    str[1] = 0;
+		    out << str;
+	    }
+	}
+	return out.str();
+}
+
+
+
+int evaluate(string pfix)
+{
+  Stack s;
+  istringstream in(pfix);
+  char c;
+  int n;
+  int a, b;
+
+  while (in >> c)
+  {
+     if (isdigit(c))
+     {
+        in.putback(c);
+        in >> n;
+        s.push(n);
+     }
+     else //c is an operator
+     {
+        switch(c)
+        {
+           case '+': s.push(s.pop() + s.pop());
+                     break;
+                     
+                    
+                     
+                     
+           case '-': b = s.pop();
+			s.push(s.pop() - b);
+		     break;
+                     
+                     
+                     
+                     
+                     
+           case '*': s.push(s.pop() * s.pop());
+                     
+                     
+                    
+                     
+                     break;
+           case '/': b= s.pop();
+		s.push(s.pop() / b);
+                     
+                     
+                     
+                     
+                     break;
+        }
+     }
+}  
+  return s.top();
+}
+
+int 
+ main()
+{
+    string infix;
+    string pfix; 
+    
+    ifstream file("expr.txt");
+cout << endl << "         Infix to Postfix -- C++ Assignment #4\n\n";
+    
+getline(file,infix);
+	while(!file.eof())
+	{
+  
+        cout << setw(50) << infix;
+        pfix = infix_2_postfix( infix );
+        cout << setw(10) << evaluate(pfix) << endl;
+
+
+	  // cout << infix;
+          //for(int i=0; i < 60 - infix.length(); i++)
+          // cout << ' ';
+          //cout << evaluate(pfix) << endl;
+	  //you needed to get the next line of input before loop end
+          getline(file,infix);
+        }  
+    file.close();
+}
+
+]0;ws031@cs:~/program4[ws031@cs program4]$ cat prog4.cpp[2Pstack.hcppg++ stack.cpp stack.h prog4.cpp -o prog4
+]0;ws031@cs:~/program4[ws031@cs program4]$ ./prog4
+
+         Infix to Postfix -- C++ Assignment #4
+
+                                  2 * (3 + 5) / 4         4
+                             12*(7+2*(4-1))/(3+2)        31
+       7 * (3811 - 141 * 12 - 100) / (1500 - 141)        10
+                    (23 * 7) / (12 - 2 * (7 - 4))        26
+                               5 * (100 - 32) / 9        37
+                                32767 - 128 * 128     16383
+                          25 * (30 - 5) - 20 * 20       225
+                    (2+2+2+2+2+2+2+2+2+2+2+2+2+2)        28
+                                          ((2+3))         5
+]0;ws031@cs:~/program4[ws031@cs program4]$ exit
+
+Script done on Thu 24 Mar 2011 10:14:18 AM CDT

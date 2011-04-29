@@ -1,0 +1,123 @@
+Script started on Tue 01 Mar 2011 07:22:04 PM CST
+]0;ws031@cs:~/program3[ws031@cs program3]$ cat p3.cpp
+/***************************************************
+
+		Program 3 By Duggan Roberts
+		
+**************************************************/
+
+#include<iostream>
+
+using namespace std;
+
+void bubbleSort(int arr[], int n) {
+
+      bool swapped = true;
+
+      int j = 0;
+
+      int tmp;
+
+      while (swapped) {
+
+            swapped = false;
+
+            j++;
+
+            for (int i = 0; i < n - j; i++) {
+
+                  if (arr[i] > arr[i + 1]) {
+
+                        tmp = arr[i];
+
+                        arr[i] = arr[i + 1];
+
+                        arr[i + 1] = tmp;
+
+                        swapped = true;
+
+                  }
+
+            }
+
+
+
+      }
+
+}
+
+int showMedian(int array[], int size)
+{
+int middle = size/2;
+int median;
+if (size%2==0)
+{
+    median = static_cast<int>(array[middle-1]+array[middle])/2;
+}
+else median = static_cast<int>(array[middle]);
+
+return median;
+}
+
+
+
+void printdata(int array[], int size, int column ) {
+
+
+for (int j = 0; j < size; j++){
+cout << array[j] << "  ";
+if (j == column) {
+cout << endl;
+}
+
+}
+
+
+}
+
+
+
+
+int main() {
+
+    int datfile[100];
+    int x;
+    int k = 0;
+    int column = 10;
+
+    cin >> x;
+    while ( ! cin.eof())
+    {
+        datfile[k++] = x;
+        cin >> x;
+       
+    }
+
+        bubbleSort(datfile, k);
+
+        int  p50 = showMedian(datfile, k);
+	int  p25 = showMedian(datfile, k/2);
+	int  p75 = showMedian(datfile + k/2 + 1, k/2);
+ 	
+	printdata(datfile, k, column);
+
+	cout << endl;
+	
+	cout << "the 25th percentile is : " << p25 << endl;
+	cout << "the 50th percentile is: " << p50 << endl; 
+	cout << "the 75th percentile is : " << p75 << std::endl ;
+		
+
+
+}
+
+]0;ws031@cs:~/program3[ws031@cs program3]$ g++-[K -o p3 p3.cpp
+]0;ws031@cs:~/program3[ws031@cs program3]$ ./p3 s[K< scores.dat
+16  35  42  48  55  57  65  67  71  71  74  
+76  77  77  79  82  85  88  91  92  99  100  
+the 25th percentile is : 57
+the 50th percentile is: 75
+the 75th percentile is : 88
+]0;ws031@cs:~/program3[ws031@cs program3]$ exit
+
+Script done on Tue 01 Mar 2011 07:22:45 PM CST

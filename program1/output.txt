@@ -1,0 +1,78 @@
+Script started on Thu 27 Jan 2011 02:55:03 PM CST
+]0;ws031@cs:~/program1[ws031@cs program1]$ a[Kcat pp[K[Kprog1.cpp 
+/* *****************************************************
+ *              File:   prog1.pp                        *
+ *              Author: Duggan Roberts                  *
+ *               Dr. Stockwel Programming 1             *
+ *                                                      *
+ *          Created on January 18, 2011, 8:54 PM        *
+ ********************************************************/
+
+
+
+#include <iostream>
+#include <iomanip>
+using std::setprecision;
+#include <cmath>
+using namespace std;
+
+int main()
+{
+double deposit,rate, periods, compound =0, continuous = 0, e = 2.71828;
+int term;
+
+// Should Validate the input but outside the scope of the assignment.
+
+cout << fixed << setprecision(2);
+cout << "Enter Amount of deposit : ";
+cin >> deposit;
+cout << "Enter Rate :";
+cin >> rate;
+cout << "Enter periods :";
+cin >> periods;
+cout << "Enter term :";
+cin >> term;
+
+double nrate =(rate/100);
+
+
+if(periods > 0)
+    compound = deposit*pow(1. + (nrate/periods),(term*periods));
+
+else
+ 
+    continuous = deposit*pow(e,(nrate*term));
+
+
+if (compound)
+
+    cout << "Normal compounding yields " << showpoint << compound << endl;
+
+    
+else 
+
+   cout << "continuous compounding yields " << showpoint << continuous << endl;
+
+    
+}
+]0;ws031@cs:~/program1[ws031@cs program1]$ cat prog1.cpp { double deposit,rate, periods, compound, continuous, e = 2..71828; int term; // Should Validate the input but outside the scope of the assiggnment.;  cout << fixed << setprecision(2);exi[A[A[ws031@cs program1]$ cat prog1[K
+[K
+[K[A[A[ws031@cs program1]$ cat prog1[4Pprog1g++ prog1.cpp -o prog1
+]0;ws031@cs:~/program1[ws031@cs program1]$ g++ prog1.cpp -o prog1[8Pcat prog1.cpp { double deposit,rate, periods, compound, continuous, e = 2..71828; int term; // Should Validate the input but outside the scope of the assiggnment.;  cout << fixed << setprecision(2);exi[A[A[ws031@cs program1]$ cat prog1[K
+[K
+[K[A[A[ws031@cs program1]$ cat prog1[4Pprog1
+Enter Amount of deposit : 100
+Enter Rate :4
+Enter periods :0
+Enter term :4
+continuous compounding yields 117.35
+]0;ws031@cs:~/program1[ws031@cs program1]$ prog1
+Enter Amount of deposit : 100
+Enter Rate :4
+Enter periods :4
+Enter term :4
+Normal compounding yields 117.26
+]0;ws031@cs:~/program1[ws031@cs program1]$ exit
+exit
+
+Script done on Thu 27 Jan 2011 02:55:56 PM CST

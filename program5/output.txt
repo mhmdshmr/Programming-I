@@ -1,0 +1,283 @@
+Script started on Thu 07 Apr 2011 03:22:40 PM CDT
+]0;ws031@cs:~/program5[ws031@cs program5]$ cat intarray.cpp
+#include "intarray.h"
+
+intArray::intArray(int _size){
+//constructor
+   allocsize = _size;
+   data = new int[allocsize];
+}
+
+intArray::~intArray(){
+//deconstructor (destruct)
+	delete [] data;
+}
+
+void intArray::copy(const intArray& other)
+{
+  allocsize = other.allocsize;
+  data = new int[allocsize];
+  for (int i = 0; i < allocsize; i++)
+    data[i] = other.data[i];
+}
+
+intArray::intArray(const intArray& other){
+  copy(other);
+}
+
+void intArray::resize(int sz){
+//resize
+   intArray old = *this;
+   delete [] data;
+   data = new int[sz];
+
+   for (int i = 0; i < sz and i < old.allocsize; i++){
+	  data[i] = old.data[i];
+   }
+   allocsize = sz;
+}
+
+int intArray::_size() const {
+//allocsize
+   return allocsize;
+}
+
+intArray& intArray::operator = (const intArray& other){
+//assignment
+   if(this != &other)
+	delete [] data;
+   copy(other);   
+   return *this;
+}
+
+int & intArray::operator[](int i){
+   return data[i];
+}
+
+]0;ws031@cs:~/program5[ws031@cs program5]$ cat intarray.h
+#if !defined(INTARRAY_H)
+#define INTARRAY_H
+
+class intArray{
+
+private:
+   int allocsize;
+   int * data;
+
+public:
+   intArray(int _size);
+   intArray(const intArray& other);
+   void copy(const intArray&);
+   ~intArray();
+   void resize(int sz);
+   int _size() const;
+   intArray& operator=(const intArray& other);
+   int& operator[](int i);
+};
+
+#endif
+]0;ws031@cs:~/program5[ws031@cs program5]$ cat testarray.cpp 
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+#include "intarray.h"
+
+using namespace std;
+
+
+float average( intArray & array)
+{
+
+
+
+float sum = 0;
+for (int i = 0; i < array._size(); i++){
+sum += array[i];
+
+}
+
+sum /= array._size();
+return sum;
+
+
+
+
+
+
+}
+
+
+
+int main(){
+	int i = 0;
+	srand(time(0));
+	bool end = false;
+	char select;
+
+
+
+	for(;;){
+	
+		intArray array(5);
+		cout << "Initial Array Value of size: 5" << endl;
+		for(i = 0; i < array._size(); i++)
+		{
+			array[i] = rand() % 100 + 1;
+			cout << array[i] << " ";
+		
+			
+		}
+	
+		cout << endl << endl;
+
+
+
+
+		array.resize(10);
+		cout << "\nInitial Array Value of size: 10" << endl;
+		cout << "Lets look at the last  5 numbers now" << endl;
+		for(i = 5; i < array._size(); i++){
+			array[i] = rand() % 100 + 1;
+			cout << array[i] << " ";
+
+	
+		}
+
+		cout << "\n and the average of the last 5 numbers" << average(array) << endl;
+
+		cout << endl << "\nPosting all 10 for size count 10 array:" << endl;
+		for(i = 0; i < array._size(); i++){
+			cout << array[i] << " ";
+		}
+
+		
+
+		cout << endl;
+		
+		
+		array.resize(5);
+		cout << "\n Now lets set the Array back to  Value of size: 5" << endl;
+
+		for (i = 0; i < array._size(); i++) {
+			cout << array[i] << " ";
+		}
+
+		cout << "\n And the average of the array set back to 5 is" << average(array) << endl;
+
+
+	
+	
+		cout << endl << endl;
+		array.resize(20);
+		cout << "\nInitial Array Value of size: 20" << endl;
+		for (i = 0; i < array._size(); i++) {
+			array[i] = rand() % 100 + 1;
+			cout << array[i] << " ";
+		}
+
+		cout << "\n the average of the new 20 values is" << average(array) << endl;
+
+		cout << endl;
+		cout << "\nAnd the Array Resize Value back down to size: 10" << endl;
+		array.resize(10);
+		for (i = 0; i < array._size(); i++) {
+			cout << array[i] << " ";
+		}
+		cout << "\n the average of this Array value is" << average(array) << endl;
+
+		cout << endl;
+
+		
+	
+		int n;
+		cout << "\nEnter new resize number: " << endl;
+		cin >> n;
+		cout << "Initial Array Value of size: " << n << endl;
+
+		array.resize(n);
+		for (i = 0; i < array._size(); i++) {
+			cout << array[i] << " ";
+		
+		}
+
+		cout << "\n the average of the generated array is" << average(array) << endl;
+
+		cout << endl << endl;
+
+		
+
+
+
+
+
+
+
+
+		//Run program or terminate
+		for(;;){
+			cout << "Again? (y/n) " << endl;
+			cin >> select;
+
+			if(select == 'y' || select == 'Y')
+				break;
+			else if(select == 'n' || select == 'N'){
+				end = true;
+				break;
+			}else
+				cout << "ERROR : Please enter Y for Yes or N for No :" << endl << endl;
+
+		}
+	//Ends first inf. for loop
+	if(end == true)
+		break;
+	}
+	return 0;
+}
+
+]0;ws031@cs:~/program5[ws031@cs program5]$ cat testarray.cpp [4Pintarray.hcpp[2Pvim intarray.hcpp[2Ph[9Parrayg++ intarray.cpp intarray.h testarray.cpp -o array
+]0;ws031@cs:~/program5[ws031@cs program5]$ array
+Initial Array Value of size: 5
+48 4 72 48 95 
+
+
+Initial Array Value of size: 10
+Lets look at the last  5 numbers now
+94 73 30 86 45 
+ and the average of the last 5 numbers59.5
+
+
+Posting all 10 for size count 10 array:
+48 4 72 48 95 94 73 30 86 45 
+
+ Now lets set the Array back to  Value of size: 5
+48 4 72 48 95 
+ And the average of the array set back to 5 is53.4
+
+
+
+Initial Array Value of size: 20
+82 6 36 52 61 46 61 70 45 99 2 4 21 16 70 70 55 48 55 98 
+ the average of the new 20 values is49.85
+
+
+And the Array Resize Value back down to size: 10
+82 6 36 52 61 46 61 70 45 99 
+ the average of this Array value is55.8
+
+
+Enter new resize number: 
+10
+Initial Array Value of size: 10
+82 6 36 52 61 46 61 70 45 99 
+ the average of the generated array is55.8
+
+
+Again? (y/n) 
+n
+]0;ws031@cs:~/program5[ws031@cs program5]$ stop
+bash: stop: command not found
+]0;ws031@cs:~/program5[ws031@cs program5]$ exit
+exit
+
+Script done on Thu 07 Apr 2011 03:24:09 PM CDT

@@ -1,0 +1,449 @@
+Script started on Fri 29 Apr 2011 01:09:53 PM CDT
+]0;ws031@cs:~/program6[ws031@cs program6]$ vim uselist.cpp ls[Kcd program6ls[Kvim uselist.cpp [3P[ws031@cs program6]$ vim list.cpp [4huse[4l[ws031@cs program6]$ vim uselist.cpp [3P[ws031@cs program6]$ vim list.cpp [4huse[4l[ws031@cs program6]$ vim uselist.cpp [3P[ws031@cs program6]$ vim list.cpp ls[Kcd program6ls[Kcd ../vim p3.cpp ls[Kcd program3[5P../vim uselist.cpp [4Plist.cpp[8Plistg++ list.h list.cpp uselist.cpp -o list[ws031@cs program6]$ [23Pvim uselist.cpp g++ list.h list.cpp uselist.cpp -o list
+]0;ws031@cs:~/program6[ws031@cs program6]$ list
+
+ Please choose an option:
+(N) -- New Appointment
+(D)-- Delete Appointment
+(L) -- List Appointments
+(Q) -- Exit Program
+Q
+
+
+Are you sure you want to quit? (Y/N)
+y
+]0;ws031@cs:~/program6[ws031@cs program6]$ cat list.cpp
+#include "list.h"
+//Implementation for the list class
+
+void List::insert(Appointment *item)
+{
+Appointment *newnode = new Appointment;
+Appointment *curr = head, *prev = 0;
+newnode->name = item->name;
+newnode->time = item->time;
+newnode->problem = item->problem;
+newnode->next = 0;
+while ( curr && curr->time < newnode->time ) 
+ {
+
+    prev = curr;
+    curr = curr->next;
+  }
+
+
+if(!curr){
+		if(!prev){
+			head = newnode;
+		}else{
+			prev->next = newnode;
+		}
+	}else if(curr->time > newnode->time){
+		if(!prev){
+			head = newnode;
+		}else {
+			prev->next = newnode ;
+		}
+		newnode ->next = curr;
+		}else{
+			cout << "ERROR: Schedule Conflict!\n\n";
+		}
+}
+
+
+
+/*
+  if (prev)
+     prev->next = newnode;
+else
+     head = newnode;
+  newnode->next = curr;
+}
+*/
+
+void List::remove(Appointment *item)
+{
+  Appointment *curr = head, *prev = 0;
+
+  while (curr && curr->name.compare(item->name))
+  {
+     prev = curr;
+     curr = curr->next;
+  }
+
+  if (curr)
+  {
+    if (! prev)
+      head = curr->next;
+    else
+      prev->next = curr->next;
+    delete curr;
+  }
+  else
+    cout << "Item to be removed not found\n";
+}
+]0;ws031@cs:~/program6[ws031@cs program6]$ cat list.h
+#ifndef LIST_HEADER
+#define LIST_HEADER
+#include <iostream>
+#include <string>
+using namespace std;
+
+//Put your datatype here
+struct Appointment
+{
+string name;
+int time;
+string problem;
+
+Appointment *next;
+
+};
+
+/*
+struct Node
+{
+  DataType data;
+  Node *next;
+};
+*/
+
+class List
+{
+
+  Appointment *head;
+
+public:
+ 
+ List()
+  {
+     head = 0;
+  }
+
+  void insert(Appointment *item);
+
+  void remove(Appointment *item);
+
+  Appointment *get_head() { return head; }
+};
+#endif
+]0;ws031@cs:~/program6[ws031@cs program6]$ cat uselist.cpp 
+#include <iostream>
+using namespace std;
+#include "list.h"
+
+int timecheck( int time) {
+
+int valid = time;
+
+
+
+for(;;)
+if(time < 800 || time > 1700) {
+
+
+  cout << "sorry Please enter a vaid time:\n" << endl;
+ cin >> time;
+
+}else{
+
+if ( time/60 || time%15){ 
+
+return time;
+}else{
+
+break;
+
+
+}
+
+}
+
+}
+
+
+
+main()
+{
+
+
+char select, quit, del, input;
+List X;
+Appointment *p;
+for(;;)
+{
+
+//Need to create a user menu
+
+
+cout << "\n Please choose an option:\n";
+cout << "(N) -- New Appointment\n";
+cout << "(D)-- Delete Appointment\n";
+cout << "(L) -- List Appointments\n";
+cout << "(Q) -- Exit Program\n";
+cin >> select;
+cout << endl << endl;
+
+for(;;){
+// New Appointment
+
+if ( select == 'n' || select == 'N'){
+
+string name, problem;
+int time;
+p = new Appointment;
+
+cout << "Please Enter Patient name: \n";
+cin >> name; 
+p->name = name;
+
+cout << "Problem Patient is having: \n";
+cin >> problem;
+
+p->problem = problem;
+
+cout << "Enter an appointment time:\n";
+cin >> time; 
+p->time = timecheck(time);
+X.insert(p);
+break;
+}
+else if  ( select == 'l' || select == 'L') {
+
+Appointment *record = X.get_head();
+cout << "Here are the current records\n";
+if(record == 0){
+
+cout << "No Appointments \n\n";
+break;
+}else{
+while (record)
+ {
+cout << "Name: " << record->name << endl;
+cout << "Problem: " << record->problem << endl;
+cout << "Time:\n" << record->time << endl;
+cout << endl << "\n+++++++++++++++++++++++++++++++++++\n";
+record  = record->next;
+ 
+               }
+break;
+        }
+
+    }else if ( select == 'D' || select == 'd' ){
+Appointment *p = X.get_head();
+string name;
+cout << "Name of Person you want to delete : " << endl;
+cin >> name; 
+
+while (p){
+if (name == p->name){ 
+X.remove(p);
+cout << "Appointment has been deleted\n";
+break;
+}else {
+p = p->next;
+cout << "Name not found" << endl;
+break;
+
+}
+
+}
+break;
+}
+else if (select == 'Q' || select == 'q'){
+				cout << "Are you sure you want to quit? (Y/N)\n";
+				cin >> quit;
+
+}
+else
+				cout << "ERROR: Please select 'N' for New, 'L' for View, 'D' for Delete, 'L', or 'Q' for Quit!";
+		if (quit == 'Y' || quit == 'y')
+			break;
+		if (quit == 'N' || quit == 'n'){
+			cout << endl;
+			break;
+		}
+		}
+	if (quit == 'Y' || quit == 'y')
+		break;
+	}
+}
+
+
+
+/*   
+List X;
+   X.insert(5);
+   X.insert(7);
+   X.insert(1);
+
+   Node *p = X.get_head();
+   cout << "Here is the linked list data:\n";
+   while (p)
+   {
+     cout << p->data << endl;
+     p = p->next;
+   }
+   cout << "\nThe average = " << avg_list(X) << endl;
+   cout << "Now we remove 7 and traverse the list again:\n";
+   X.remove(7);
+   p = X.get_head();
+   while (p)
+   {
+     cout << p->data << endl;
+     p = p->next;
+   }
+   return 0;
+*/
+
+
+]0;ws031@cs:~/program6[ws031@cs program6]$ list
+
+ Please choose an option:
+(N) -- New Appointment
+(D)-- Delete Appointment
+(L) -- List Appointments
+(Q) -- Exit Program
+N
+
+
+Please Enter Patient name: 
+Duggan
+Problem Patient is having: 
+Cancer
+Enter an appointment time:
+9 700
+sorry Please enter a vaid time:
+
+800
+
+ Please choose an option:
+(N) -- New Appointment
+(D)-- Delete Appointment
+(L) -- List Appointments
+(Q) -- Exit Program
+N
+
+
+Please Enter Patient name: 
+Sam
+Problem Patient is having: 
+Back
+Enter an appointment time:
+1000
+
+ Please choose an option:
+(N) -- New Appointment
+(D)-- Delete Appointment
+(L) -- List Appointments
+(Q) -- Exit Program
+L
+
+
+Here are the current records
+Name: Duggan
+Problem: Cancer
+Time:
+800
+
+
++++++++++++++++++++++++++++++++++++
+Name: Sam
+Problem: Back
+Time:
+1000
+
+
++++++++++++++++++++++++++++++++++++
+
+ Please choose an option:
+(N) -- New Appointment
+(D)-- Delete Appointment
+(L) -- List Appointments
+(Q) -- Exit Program
+D
+
+
+Name of Person you want to delete : 
+Duggan
+Appointment has been deleted
+
+ Please choose an option:
+(N) -- New Appointment
+(D)-- Delete Appointment
+(L) -- List Appointments
+(Q) -- Exit Program
+N
+
+
+Please Enter Patient name: 
+Bii ll
+Problem Patient is having: 
+cough
+Enter an appointment time:
+1000
+ERROR: Schedule Conflict!
+
+
+ Please choose an option:
+(N) -- New Appointment
+(D)-- Delete Appointment
+(L) -- List Appointments
+(Q) -- Exit Program
+L
+
+
+Here are the current records
+Name: Sam
+Problem: Back
+Time:
+1000
+
+
++++++++++++++++++++++++++++++++++++
+
+ Please choose an option:
+(N) -- New Appointment
+(D)-- Delete Appointment
+(L) -- List Appointments
+(Q) -- Exit Program
+N
+
+
+Please Enter Patient name: 
+Frank
+Problem Patient is having: 
+Ill
+Enter an appointment time:
+1125
+
+ Please choose an option:
+(N) -- New Appointment
+(D)-- Delete Appointment
+(L) -- List Appointments
+(Q) -- Exit Program
+N
+
+
+Please Enter Patient name: 
+William
+Problem Patient is having: 
+Sick
+Enter an appointment time:
+845
+
+ Please choose an option:
+(N) -- New Appointment
+(D)-- Delete Appointment
+(L) -- List Appointments
+(Q) -- Exit Program
+X Q
+
+
+Are you sure you want to quit? (Y/N)
+Y
+]0;ws031@cs:~/program6[ws031@cs program6]$ stop script
+bash: stop: command not found
+]0;ws031@cs:~/program6[ws031@cs program6]$ exit
+
+Script done on Fri 29 Apr 2011 01:12:37 PM CDT

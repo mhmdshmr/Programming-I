@@ -1,0 +1,73 @@
+Script started on Tue 15 Feb 2011 02:04:47 PM CST
+]0;ws031@cs:~/program2[ws031@cs program2]$ at[K[Kcat p2.cpp
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+
+int main()
+{
+
+            const double tol = .01;
+            double value = -1;
+            double old_value, new_value;
+            bool ii = false;
+            int n = 0;
+
+
+
+            while (!ii)
+  {
+	cout << "**********Square root of a number********** \n"
+        << endl << endl;
+        cout << " Enter a positive number: ";
+        cin >> value;
+        if (value > 0  ) ii = true;
+       
+        else {
+            cout << "Please enter a positive number, also the number can not be 0" ;
+                    ii = false;
+        }
+}
+
+	
+	old_value = value;
+	new_value = (old_value + value / old_value)/2;
+
+	while (fabs((new_value - old_value)/new_value) > tol)
+	{
+		old_value = new_value;
+                new_value = (old_value + value/old_value)/2;
+		n++;
+
+                if ( n > 100)
+                    cout << "something went wrong!";
+
+	}
+
+        cout << new_value << " and the number of loops " << n << "\n";
+
+
+    }
+]0;ws031@cs:~/program2[ws031@cs program2]$ cat p2.cppnano prog1.cpp [10Pprog1g++ prog1.cpp -o prog1
+g++: prog1.cpp: No such file or directory
+g++: no input files
+]0;ws031@cs:~/program2[ws031@cs program2]$ g++ prog1.cpp -o prog1[1P[1P[1P[1P[4h2[4l[ws031@cs program2]$ g++ p2.[ws031@cs program2]$ g++ p2.c[ws031@cs program2]$ g++ p2.cp[ws031@cs program2]$ g++ p2.cpp[ws031@cs program2]$ g++ p2.cpp [ws031@cs program2]$ g++ p2.cpp -[ws031@cs program2]$ g++ p2.cpp -o[ws031@cs program2]$ g++ p2.cpp -o [ws031@cs program2]$ g++ p2.cpp -o p[ws031@cs program2]$ g++ p2.cpp -o pr[ws031@cs program2]$ g++ p2.cpp -o pro[ws031@cs program2]$ g++ p2.cpp -o prog[ws031@cs program2]$ g++ p2.cpp -o prog1[K[K[K[K2
+]0;ws031@cs:~/program2[ws031@cs program2]$ p2
+**********Square root of a number********** 
+
+
+ Enter a positive number: -20
+Please enter a positive number, also the number can not be 0**********Square root of a number********** 
+
+
+ Enter a positive number: 0
+Please enter a positive number, also the number can not be 0**********Square root of a number********** 
+
+
+ Enter a positive number: 9
+3.00009 and the number of loops 3
+]0;ws031@cs:~/program2[ws031@cs program2]$ exit
+
+Script done on Tue 15 Feb 2011 02:05:47 PM CST
